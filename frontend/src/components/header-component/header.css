@@ -1,0 +1,15 @@
+.header-logo{
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+}
+
+.header-logo:hover{
+    color: rgb(67, 67, 67)
+}
+
+.header-link {
+    margin: 10px;
+    text-decoration: none;
+}
+

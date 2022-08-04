@@ -1,21 +1,27 @@
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
-import Header from "./components/Header";
+import Header from "./components/header-component/Header";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Home from "./pages/home-page/Home";
+import Login from "./pages/login-page/Login";
+import Register from "./pages/register-page/Register";
+
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
   return (
-    <div className="container">
+    <>
     <Header/>
+    <div className="container">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+      <ToastContainer/>
     </div>
+    </>
   );
 }
 
