@@ -20,8 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 // ---- Routes ----
 // Users Route
 app.use("/api/users", require("./routes/userRoutes"));
+// Tickets Route
+app.use("/api/tickets", require("./routes/ticketRoutes"));
 
-// Custom Error Handler
+// ---- Custom Error Handler ----
 app.use(errorHandler);
 
 app.listen(PORT, () => {

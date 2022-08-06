@@ -10,7 +10,6 @@ function Header() {
   const dispatch = useDispatch()
 
   const user = useSelector(getUser)
-  console.log(user)
 
   const onLogout = () => {
     dispatch(logout())
