@@ -35,7 +35,6 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    // @TODO: Send JWT Token
     res.status(201).json({
       _id: user._id,
       name: user.name,

@@ -22,6 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/users", require("./routes/userRoutes"));
 // Tickets Route
 app.use("/api/tickets", require("./routes/ticketRoutes"));
+// Projects Route
+app.use("/api/projects", require("./routes/projectRoutes"));
+
 
 // ---- Custom Error Handler ----
 app.use(errorHandler);

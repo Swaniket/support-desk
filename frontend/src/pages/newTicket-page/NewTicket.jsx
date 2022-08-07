@@ -1,27 +1,60 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Button, Form, Container } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getUser } from "../../features/auth/authSlice";
+import {
+  createNewTicket,
+  fetchProjects,
+  getProjects,
+  getTicket,
+} from "../../features/tickets/ticketSlice";
+
+import { Button, Form, Container } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 function NewTicket() {
+  const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const projects = useSelector(getProjects);
+  const {isLoading} = useSelector(getTicket);
+
+  useEffect(() => {
+    dispatch(fetchProjects());
+  }, [dispatch]);
+
   const [name] = useState(user.name);
   const [email] = useState(user.email);
   const [project, setProject] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  var isLoading = false;
-
   const clearForm = () => {
-    setProject("")
-    setTitle("")
-    setDescription("")
-    
+    setProject("");
+    setTitle("");
+    setDescription("");
   };
 
-  const onSubmit = () => {};
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    if (project === "" || title === "" || description === "") {
+      toast.error("Please fill out the required fields");
+      return
+    }
+
+    const ticketData = {
+      project,
+      title,
+      description,
+    };
+
+    const data = await dispatch(createNewTicket(ticketData))
+    
+    if(data?.payload?.title) {
+      clearForm()
+      toast.success("Ticket Created Successfully")
+    }
+  };
 
   return (
     <Container>
@@ -73,10 +106,12 @@ function NewTicket() {
             onChange={(e) => setProject(e.target.value)}
             required
           >
-            <option>Select a Project</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="">Select a Project</option>
+            {projects.map((project) => (
+              <option key={project._id} value={project.projectName}>
+                {project.projectName}
+              </option>
+            ))}
           </Form.Select>
         </Form.Group>
 
@@ -118,7 +153,7 @@ function NewTicket() {
             Clear
           </Button>
           <Button className="btn btn-dark" type="submit" disabled={isLoading}>
-            {isLoading ? "Loading…" : "Register"}
+            {isLoading ? "Loading…" : "Open Ticket"}
           </Button>
         </div>
       </Form>
