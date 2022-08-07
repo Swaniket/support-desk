@@ -12,9 +12,10 @@ function Header() {
   const user = useSelector(getUser)
 
   const onLogout = () => {
+    navigate("/")
     dispatch(logout())
     dispatch(reset())
-    navigate("/")
+    
   }
 
   return (

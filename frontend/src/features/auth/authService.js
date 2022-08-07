@@ -22,8 +22,8 @@ const login = async (userCredential) => {
 
 // Logout a user
 const logout = () => {
-  console.log("LOgout");
   localStorage.removeItem("user");
+  // @TODO: Unvalidate user token from backend
 };
 
 const authService = {

@@ -68,8 +68,6 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Invalid Credentials!");
   }
-
-  res.send("login Route");
 });
 
 // @DESC-    Retrives an user profile
@@ -86,6 +84,13 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(user);
 });
 
+// @DESC-    User Login
+// @ROUTE-   POST: /api/users/login
+// @ACCESS-  Protected
+const isAdmin = asyncHandler(async (req, res) => {
+  res.status(200).send({ isAdmin: req.user.isAdmin });
+});
+
 // Generate Token
 const generateToken = (id, isAdmin) => {
   return jwt.sign({ id, isAdmin }, process.env.JWT_SECRET, {
@@ -97,4 +102,5 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
+  isAdmin,
 };
