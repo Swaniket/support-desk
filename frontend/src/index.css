@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   height: 100vh;
 }
 
@@ -28,4 +28,16 @@ body {
   justify-content: center;
 }
 
+.react-bootstrap-table-pagination-list {
+  display: flex;
+  justify-content: flex-end;
+}
 
+.dropdown-item > a {
+  text-decoration: none;
+  color: black;
+}
+
+.dropdown-item > a:hover {
+  color: white;
+}

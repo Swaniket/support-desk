@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { getUser } from "../../features/auth/authSlice";
 import {
@@ -7,20 +8,34 @@ import {
   fetchProjects,
   getProjects,
   getTicket,
+  reset,
 } from "../../features/tickets/ticketSlice";
 
 import { Button, Form, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
+import BackButton from "../../components/back-button-component/BackButton";
 
 function NewTicket() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector(getUser);
   const projects = useSelector(getProjects);
-  const {isLoading} = useSelector(getTicket);
+  const { isLoading, isSuccess, isError, message } = useSelector(getTicket);
 
   useEffect(() => {
     dispatch(fetchProjects());
-  }, [dispatch]);
+
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess) {
+      navigate("/tickets");
+    }
+
+    dispatch(reset());
+  }, [dispatch, isError, isSuccess, navigate, message]);
 
   const [name] = useState(user.name);
   const [email] = useState(user.email);
@@ -39,7 +54,7 @@ function NewTicket() {
 
     if (project === "" || title === "" || description === "") {
       toast.error("Please fill out the required fields");
-      return
+      return;
     }
 
     const ticketData = {
@@ -48,16 +63,17 @@ function NewTicket() {
       description,
     };
 
-    const data = await dispatch(createNewTicket(ticketData))
-    
-    if(data?.payload?.title) {
-      clearForm()
-      toast.success("Ticket Created Successfully")
+    const data = await dispatch(createNewTicket(ticketData));
+
+    if (data?.payload?.title) {
+      clearForm();
+      toast.success("Ticket Created Successfully");
     }
   };
 
   return (
     <Container>
+    <BackButton url="/"/>
       <section>
         <h1 className="heading custom-text-primary">Create Ticket</h1>
         <p className="heading-sub custom-text-secondary">
