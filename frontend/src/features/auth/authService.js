@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URL = "/api/users";
+const ADMIN_URL = "/api/users/isAdmin";
 
 // Register new user
 const register = async (userData) => {
@@ -13,11 +14,26 @@ const register = async (userData) => {
 
 // User Login
 const login = async (userCredential) => {
+  var userIsAdmin = false
+
   const response = await axios.post(`${API_URL}/login`, userCredential);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
+
+    const token = response.data.token;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const checkAdmin = await axios.get(ADMIN_URL, config);
+
+    userIsAdmin = checkAdmin.data.isAdmin
+
   }
-  return response.data;
+  return {user: response.data, isAdmin: userIsAdmin};
 };
 
 // Logout a user

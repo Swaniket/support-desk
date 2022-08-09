@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 
+// Authentication Midddlewere for Loggedin Users
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -39,6 +40,7 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
+// Authentication Middlewere for Admin Users
 const protectAdmin = asyncHandler(async (req, res, next) => {
     let token;
 

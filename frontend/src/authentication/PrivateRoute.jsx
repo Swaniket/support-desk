@@ -11,6 +11,7 @@ const useAuth = () => {
 
 function PrivateRoute() {
   const isAuth = useAuth();
+
   return isAuth ? (
     <>
       <Outlet />

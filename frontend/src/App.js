@@ -2,14 +2,17 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Header from "./components/header-component/Header";
+import TestAdmin from "./components/TestAdmin";
 
 import Home from "./pages/home-page/Home";
 import Login from "./pages/login-page/Login";
 import Register from "./pages/register-page/Register";
 import NewTicket from "./pages/new-ticket-page/NewTicket";
 import Tickets from "./pages/tickets-page/Tickets";
+import Ticket from "./pages/ticket-page/Ticket";
 
 import PrivateRoute from "./authentication/PrivateRoute";
+import AdminRoute from "./authentication/AdminRoute";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,6 +29,11 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/new-ticket" element={<NewTicket />} />
             <Route path="/tickets" element={<Tickets />} />
+            <Route path="/ticket/:ticketId" element={<Ticket />} />
+          </Route>
+
+          <Route element={<AdminRoute />}>
+            <Route path="/admin-test" element={<TestAdmin />} />
           </Route>
         </Routes>
         <ToastContainer />
