@@ -31,7 +31,6 @@ const login = async (userCredential) => {
     const checkAdmin = await axios.get(ADMIN_URL, config);
 
     userIsAdmin = checkAdmin.data.isAdmin
-
   }
   return {user: response.data, isAdmin: userIsAdmin};
 };

@@ -66,6 +66,9 @@ export const authSlice = createSlice({
       state.isSuccess = false;
       state.message = "";
     },
+    setAdmin: (state, action) => {
+      state.isAdmin = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -94,6 +97,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload.user;
+        console.log("action.payload.isAdmin", action.payload.isAdmin)
         state.isAdmin = action.payload.isAdmin
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -112,6 +116,6 @@ export const getAuth = (state) => state.auth;
 export const getUser = (state) => state.auth.user;
 export const getAdmin = (state) => state.auth.isAdmin;
 
-export const { reset } = authSlice.actions;
+export const { reset, setAdmin } = authSlice.actions;
 
 export default authSlice.reducer;

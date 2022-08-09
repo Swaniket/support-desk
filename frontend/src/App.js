@@ -15,8 +15,34 @@ import PrivateRoute from "./authentication/PrivateRoute";
 import AdminRoute from "./authentication/AdminRoute";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import axios from "axios";
+import { setAdmin } from "./features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  const ADMIN_URL = "/api/users/isAdmin";
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user && user.token) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      // Check if user is admin
+      const checkAdmin = async () => {
+        const response = await axios.get(ADMIN_URL, config);
+        console.log(response.data);
+        dispatch(setAdmin(response.data.isAdmin));
+      };
+      checkAdmin();
+    }
+  }, [dispatch]);
+
   return (
     <>
       <Header />
