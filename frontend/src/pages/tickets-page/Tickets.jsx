@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -10,10 +10,14 @@ import {
 
 import BackButton from "../../components/back-button-component/BackButton";
 import CustomTable from "../../components/custom-table-component/CustomTable";
+import ViewTicket from "../../components/view-ticket-component/ViewTicket";
 
 function Tickets() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [openViewTicket, setOpenViewTicket] = useState(false);
+  const [viewTicketData, setViewTicketData] = useState({});
 
   const { tickets, isLoading, isSuccess } = useSelector(getTicket);
 
@@ -28,12 +32,18 @@ function Tickets() {
     dispatch(fetchTickets());
   }, [dispatch]);
 
-  const handleEditUser = (rowData) => {
-    console.log(rowData);
-    navigate(`/ticket/${rowData._id}`);
+  const closeViewTicketModal = () => {
+    setOpenViewTicket(false);
+    setViewTicketData({});
   };
 
-  const editUserButton = (cell, row, rowIndex, formatExtraData) => {
+  const handleEditUser = (rowData) => {
+    // navigate(`/ticket/${rowData._id}`);
+    setViewTicketData(rowData);
+    setOpenViewTicket(true);
+  };
+
+  const viewTicketButton = (cell, row, rowIndex, formatExtraData) => {
     return (
       <>
         <button
@@ -75,7 +85,7 @@ function Tickets() {
     {
       dataField: "actions",
       text: "Action",
-      formatter: editUserButton,
+      formatter: viewTicketButton,
       style: { fontSize: "small" },
     },
   ];
@@ -89,6 +99,11 @@ function Tickets() {
       <div className="tickets">
         <CustomTable data={tickets} columns={columns} key="id" />
       </div>
+      <ViewTicket
+        show={openViewTicket}
+        handleClose={closeViewTicketModal}
+        data={viewTicketData}
+      />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL = "/api/tickets/";
-const API_URL_PROJECTS = "/api/projects/"
+const API_URL_PROJECTS = "/api/projects/";
 
 // Create new ticket
 const createTicket = async (ticketData, token) => {
@@ -23,7 +23,7 @@ const getTickets = async (token) => {
   };
   const response = await axios.get(API_URL, config);
   return response.data;
-}
+};
 
 // Get Single ticket by ticketID
 const getTicket = async (ticketId, token) => {
@@ -34,7 +34,22 @@ const getTicket = async (ticketId, token) => {
   };
   const response = await axios.get(`${API_URL}${ticketId}`, config);
   return response.data;
-}
+};
+
+// Close a ticket
+const closeTicket = async (ticketId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.put(
+    `${API_URL}${ticketId}`,
+    { status: "closed" },
+    config
+  );
+  return response.data;
+};
 
 // Get All Projects
 const getProjects = async (token) => {
@@ -44,14 +59,15 @@ const getProjects = async (token) => {
     },
   };
   const response = await axios.get(API_URL_PROJECTS, config);
-  return response.data
-}
+  return response.data;
+};
 
 const ticketService = {
   createTicket,
   getProjects,
   getTickets,
-  getTicket
+  getTicket,
+  closeTicket,
 };
 
 export default ticketService;
