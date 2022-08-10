@@ -1,8 +1,12 @@
+import { useEffect } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import { setAdmin } from "./features/auth/authSlice";
+
 import Header from "./components/header-component/Header";
-import TestAdmin from "./components/TestAdmin";
 
 import Home from "./pages/home-page/Home";
 import Login from "./pages/login-page/Login";
@@ -14,10 +18,6 @@ import PrivateRoute from "./authentication/PrivateRoute";
 import AdminRoute from "./authentication/AdminRoute";
 
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
-import axios from "axios";
-import { setAdmin } from "./features/auth/authSlice";
-import { useDispatch } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +35,6 @@ function App() {
       // Check if user is admin
       const checkAdmin = async () => {
         const response = await axios.get(ADMIN_URL, config);
-        console.log(response.data);
         dispatch(setAdmin(response.data.isAdmin));
       };
       checkAdmin();
@@ -48,18 +47,15 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<Login />} />
-          
 
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/new-ticket" element={<NewTicket />} />
             <Route path="/tickets" element={<Tickets />} />
-            
           </Route>
 
           <Route element={<AdminRoute />}>
-          <Route path="/register" element={<Register />} />
-            <Route path="/admin-test" element={<TestAdmin />} />
+            <Route path="/register" element={<Register />} />
           </Route>
         </Routes>
         <ToastContainer />

@@ -80,11 +80,9 @@ export const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.user = null;
         state.isError = true;
         state.message = action.payload;
       })
@@ -97,7 +95,6 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload.user;
-        console.log("action.payload.isAdmin", action.payload.isAdmin)
         state.isAdmin = action.payload.isAdmin
       })
       .addCase(loginUser.rejected, (state, action) => {

@@ -7,9 +7,6 @@ const useAuth = () => {
   const user = useSelector(getUser);
   const isAdmin = useSelector(getAdmin);
 
-  console.log("user", user)
-  console.log("isAdmin", isAdmin)
-
   if (!user || !isAdmin) return false;
   return true;
 };

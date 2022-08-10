@@ -23,9 +23,13 @@ function Header() {
     dispatch(reset());
   };
 
-  const onAdminClick = () => {
-    navigate("/admin-test");
+  const handleAddUserClick = () => {
+    navigate("/register");
   };
+
+  const handleAddProject = () => {}
+
+  const handleOpenDashboard = () => {}
 
   return (
     <Navbar className="navbar navbar-expand-lg navbar-light bg-light">
@@ -57,13 +61,13 @@ function Header() {
                     <Dropdown.Header>
                       <small>Admin Options</small>
                     </Dropdown.Header>
-                    <Dropdown.Item href="#/action-1">
+                    <Dropdown.Item onClick={handleAddUserClick}>
                       <FaUserPlus /> Add User
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
+                    <Dropdown.Item onClick={handleAddProject}>
                       <FaPlus /> Add Project
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
+                    <Dropdown.Item onClick={handleOpenDashboard}>
                       <FaDashcube /> Dashboard
                     </Dropdown.Item>
                   </>

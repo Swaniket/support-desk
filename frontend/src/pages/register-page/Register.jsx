@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser, getAuth, reset } from "../../features/auth/authSlice";
 
@@ -10,9 +9,8 @@ import "./register.css";
 
 function Register() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const { user, isLoading, isSuccess, isError, message } = useSelector(getAuth);
+  const { isLoading, isSuccess, isError, message } = useSelector(getAuth);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,13 +26,18 @@ function Register() {
       toast.error(message);
     }
 
-    // Redirect when loggedin
-    if (isSuccess || user) {
-      navigate("/home");
+    if (isSuccess) {
+      toast.success("User Created Successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
     }
 
     dispatch(reset());
-  }, [isError, isSuccess, user, dispatch, message, navigate]);
+  }, [isError, message, dispatch, isSuccess]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -54,7 +57,6 @@ function Register() {
         email,
         password,
       };
-
       dispatch(registerUser(userData));
     }
   };
@@ -166,7 +168,7 @@ function Register() {
             Clear
           </Button>
           <Button className="btn btn-dark" type="submit" disabled={isLoading}>
-          {isLoading ? 'Loading…' : 'Register'}
+            {isLoading ? "Loading…" : "Register"}
           </Button>
         </div>
       </Form>

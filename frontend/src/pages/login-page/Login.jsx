@@ -43,10 +43,6 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    // if (password !== confirmPassword) {
-    //   toast.error("Passwords do not match");
-    // }
     const userData = {
       email,
       password,
