@@ -6,8 +6,8 @@ import {
   getUser,
   getAdmin,
 } from "../../features/auth/authSlice";
-import { FaHome, FaSignOutAlt, FaUser, FaUserFriends } from "react-icons/fa";
-import { Button, Container, Navbar } from "react-bootstrap";
+import { FaSignOutAlt, FaUserPlus, FaPlus, FaDashcube } from "react-icons/fa";
+import { Container, Navbar, Dropdown } from "react-bootstrap";
 import "./header.css";
 
 function Header() {
@@ -24,8 +24,8 @@ function Header() {
   };
 
   const onAdminClick = () => {
-    navigate("/admin-test")
-  }
+    navigate("/admin-test");
+  };
 
   return (
     <Navbar className="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,36 +39,37 @@ function Header() {
         <Navbar.Toggle />
         {/* Links */}
         <Navbar.Collapse className="justify-content-end">
-          {user && isAdmin && (
-            <Navbar.Text>
-              <button
-                className="btn btn-outline-dark header-link"
-                onClick={onAdminClick}
-              >
-                <FaUserFriends /> Admin
-              </button>
-            </Navbar.Text>
-          )}
+          {user && (
+            <Dropdown>
+              <Dropdown.Toggle id="dropdown-basic" variant="dark">
+                Menu
+              </Dropdown.Toggle>
 
-          {user ? (
-            <Navbar.Text>
-              <Button className="btn btn-dark" onClick={onLogout}>
-                <FaSignOutAlt /> Logout
-              </Button>
-            </Navbar.Text>
-          ) : (
-            <>
-              <Navbar.Text>
-                <Link to="/home" className="header-link">
-                  <FaHome /> Home
-                </Link>
-              </Navbar.Text>
-              <Navbar.Text>
-                <Link to="/register" className="header-link">
-                  <FaUser /> Register
-                </Link>
-              </Navbar.Text>
-            </>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={onLogout}>
+                  {" "}
+                  <FaSignOutAlt /> Logout
+                </Dropdown.Item>
+
+                {user && isAdmin && (
+                  <>
+                    <Dropdown.Divider />
+                    <Dropdown.Header>
+                      <small>Admin Options</small>
+                    </Dropdown.Header>
+                    <Dropdown.Item href="#/action-1">
+                      <FaUserPlus /> Add User
+                    </Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">
+                      <FaPlus /> Add Project
+                    </Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">
+                      <FaDashcube /> Dashboard
+                    </Dropdown.Item>
+                  </>
+                )}
+              </Dropdown.Menu>
+            </Dropdown>
           )}
         </Navbar.Collapse>
       </Container>

@@ -48,7 +48,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          
 
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
@@ -58,6 +58,7 @@ function App() {
           </Route>
 
           <Route element={<AdminRoute />}>
+          <Route path="/register" element={<Register />} />
             <Route path="/admin-test" element={<TestAdmin />} />
           </Route>
         </Routes>
