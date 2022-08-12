@@ -1,0 +1,17 @@
+.content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  margin-top: 15%;
+}
+
+.add-project-btn {
+  display: flex;
+  justify-content: end;
+}
+
+.project-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

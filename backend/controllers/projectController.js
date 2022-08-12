@@ -20,6 +20,13 @@ const addNewProject = asyncHandler(async (req, res) => {
   // @TODO: Check if project already exists
   const { projectName } = req.body;
 
+  const projectExists = await Projects.find({ projectName: projectName });
+
+  if (projectExists && projectExists.length > 0) {
+    res.status(409);
+    throw new Error("Project already exists");
+  }
+
   const createdProject = await Projects.create({
     projectName,
   });
