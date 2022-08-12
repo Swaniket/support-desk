@@ -115,27 +115,13 @@ const deleteTicket = asyncHandler(async (req, res) => {
 
 // @DESC-    Update ticket by ticket ID
 // @ROUTE-   PUT: /api/tickets/:id
-// @ACCESS-  Protected
+// @ACCESS-  Admin Only
 const updateTicket = asyncHandler(async (req, res) => {
-  // Get user using JWT
-  // req.user.id is populated through the auth middlewere
-  const user = await User.findById(req.user.id);
-
-  if (!user) {
-    res.status(401);
-    throw new Error("User not found");
-  }
-
   const ticket = await Ticket.findById(req.params.id);
 
   if (!ticket) {
     res.status(404);
     throw new Error("Ticket not found");
-  }
-
-  if (ticket.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error("Not Authorized");
   }
 
   // Update ticket

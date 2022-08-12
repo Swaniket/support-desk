@@ -1,20 +1,23 @@
 import { Button, Modal, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { closeTicket, getTicket,fetchTickets } from "../../features/tickets/ticketSlice";
+import { getTicket } from "../../features/tickets/ticketSlice";
+import { closeTicket } from "../../features/admin/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { getAdmin } from "../../features/auth/authSlice";
 
-function ViewTicket({ show, handleClose, data }) {
+function ViewTicket({ show, handleClose, data, type }) {
   const dispatch = useDispatch();
+
   const { isLoading } = useSelector(getTicket);
+  const isAdmin = useSelector(getAdmin);
 
   const onTicketClose = async () => {
     if (data.status === "closed") toast.error("Ticket is already closed");
-    const res = await dispatch(closeTicket(data._id))
+    const res = await dispatch(closeTicket(data._id));
 
-    if(res.payload.project) {
-      toast.success("Ticket Closed")
-      handleClose()
-      dispatch(fetchTickets())
+    if (res.payload.project) {
+      toast.success("Ticket Closed");
+      handleClose();
     }
   };
 
@@ -53,13 +56,15 @@ function ViewTicket({ show, handleClose, data }) {
           <Button variant="secondary" onClick={handleClose}>
             Exit
           </Button>
-          <button
-            className="btn btn-outline-danger"
-            onClick={onTicketClose}
-            disabled={data.status === "closed" || isLoading}
-          >
-            {isLoading ? "loading..." : "Close Ticket"}
-          </button>
+          {isAdmin && type === "adminForm" && (
+            <button
+              className="btn btn-outline-danger"
+              onClick={onTicketClose}
+              disabled={data.status === "closed" || isLoading}
+            >
+              {isLoading ? "loading..." : "Close Ticket"}
+            </button>
+          )}
         </Modal.Footer>
       </Modal>
     </>

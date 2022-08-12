@@ -38,7 +38,6 @@ function Tickets() {
   };
 
   const handleEditUser = (rowData) => {
-    // navigate(`/ticket/${rowData._id}`);
     setViewTicketData(rowData);
     setOpenViewTicket(true);
   };

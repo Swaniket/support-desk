@@ -70,3 +70,12 @@ body {
   color: #fff;
   border-radius: 10px;
 }
+
+.ticket-desc {
+  margin: 20px 0;
+  font-size: 17px;
+  background-color: #f4f4f4;
+  border: 1px #ccc solid;
+  padding: 10px 15px;
+  border-radius: 5px;
+}

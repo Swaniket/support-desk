@@ -17,7 +17,7 @@ router.route("/").get(protect, getTickets).post(protect, createTicket);
 router
   .route("/:id")
   .get(protect, getTicket)
-  .delete(protect, deleteTicket)
-  .put(protect, updateTicket);
+  .delete(protectAdmin, deleteTicket)
+  .put(protectAdmin, updateTicket);
 
 module.exports = router;

@@ -16,7 +16,7 @@ const getAdminKPI = asyncHandler(async (req, res) => {
 // @ROUTE-   GET: /api/admin/allTickets
 // @ACCESS-  Admin Only
 const getAllTickets = asyncHandler(async (req, res) => {
-  const tickets = await Ticket.find({}).populate("user");
+  const tickets = await Ticket.find({}).populate("user", "name email");
   res.status(200).json(tickets);
 });
 
