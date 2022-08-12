@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,7 +13,6 @@ import ViewTicket from "../../components/view-ticket-component/ViewTicket";
 
 function Tickets() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [openViewTicket, setOpenViewTicket] = useState(false);
   const [viewTicketData, setViewTicketData] = useState({});
@@ -96,7 +94,7 @@ function Tickets() {
         <h1 className="heading">My Tickets</h1>
       </section>
       <div className="tickets">
-        <CustomTable data={tickets} columns={columns} key="id" loading={isLoading} />
+        <CustomTable data={tickets} columns={columns} keyField='_id' loading={isLoading} />
       </div>
       <ViewTicket
         show={openViewTicket}

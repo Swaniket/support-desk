@@ -4,6 +4,7 @@ import adminService from "./adminService";
 const initialState = {
   tickets: [],
   ticket: {},
+  kpis: {},
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -37,6 +38,26 @@ export const closeTicket = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.token;
       return await adminService.closeTicket(ticketId, token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Fetch Tickets from all users
+export const fetchKPIs = createAsyncThunk(
+  "admin/fetchKPIs",
+  async (_, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      return await adminService.fetchKPIs(token);
     } catch (error) {
       const message =
         (error.response &&
@@ -102,12 +123,27 @@ export const adminSlice = createSlice({
             ? ticket.status === "closed"
             : ticket
         );
+        state.kpis.openTickets = state.kpis.openTickets - 1
+        state.kpis.closedTickets = state.kpis.closedTickets + 1
       })
       .addCase(closeTicket.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-      });
+      })
+      .addCase(fetchKPIs.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchKPIs.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.kpis = action.payload
+      })
+      .addCase(fetchKPIs.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
   },
 });
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllTickets,
+  fetchKPIs,
   getAdminState,
 } from "../../features/admin/adminSlice";
 
@@ -17,9 +18,10 @@ function Dashboard() {
   const [openViewTicket, setOpenViewTicket] = useState(false);
   const [viewTicketData, setViewTicketData] = useState({});
 
-  const { tickets, isLoading, isError } = useSelector(getAdminState);
+  const { tickets, kpis, isLoading, isError } = useSelector(getAdminState);
 
   useEffect(() => {
+    dispatch(fetchKPIs())
     dispatch(fetchAllTickets());
   }, [dispatch]);
 
@@ -93,12 +95,24 @@ function Dashboard() {
 
   return (
     <>
-      <div className="card-layout">
-        <CustomCard title="Total Tickets" value="100" />
-        <CustomCard title="Open Ticket" value="97" />
-        <CustomCard title="Resolved Tickets" value="3" />
+      <div>
+        <hr></hr>
+        <div className="card-layout">
+          <CustomCard title="Total Tickets" value={kpis?.totalTickets} />
+          <CustomCard title="Open Ticket" value={kpis?.openTickets} />
+          <CustomCard title="Resolved Tickets" value={kpis?.closedTickets} />
+        </div>
       </div>
-      <CustomTable data={tickets} columns={columns} key="id" loading={isLoading} />
+      <hr></hr>
+      <div className="table-container">
+        <h1 className="heading">All Tickets</h1>
+        <CustomTable
+        keyField='_id'
+          data={tickets}
+          columns={columns}
+          loading={isLoading}
+        />
+      </div>
       <ViewTicket
         show={openViewTicket}
         handleClose={closeViewTicketModal}
