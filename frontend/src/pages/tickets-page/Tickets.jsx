@@ -96,7 +96,7 @@ function Tickets() {
         <h1 className="heading">My Tickets</h1>
       </section>
       <div className="tickets">
-        <CustomTable data={tickets} columns={columns} key="id" />
+        <CustomTable data={tickets} columns={columns} key="id" loading={isLoading} />
       </div>
       <ViewTicket
         show={openViewTicket}

@@ -98,7 +98,7 @@ function Dashboard() {
         <CustomCard title="Open Ticket" value="97" />
         <CustomCard title="Resolved Tickets" value="3" />
       </div>
-      <CustomTable data={tickets} columns={columns} key="id" />
+      <CustomTable data={tickets} columns={columns} key="id" loading={isLoading} />
       <ViewTicket
         show={openViewTicket}
         handleClose={closeViewTicketModal}

@@ -1,14 +1,16 @@
 import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import overlayFactory from "react-bootstrap-table2-overlay";
 
-function CustomTable({ data, columns }) {
+function CustomTable({ data, columns, loading }) {
   return (
     <>
       <BootstrapTable
         keyField="id"
         data={data}
         columns={columns}
+        loading={loading}
         striped
         hover
         pagination={paginationFactory({
@@ -28,6 +30,11 @@ function CustomTable({ data, columns }) {
             },
           ],
         })}
+        overlay={overlayFactory({
+          spinner: true,
+          background: "rgba(211, 211, 211, 0.3)",
+        })}
+        noDataIndication
       />
     </>
   );

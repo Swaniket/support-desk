@@ -36,8 +36,6 @@ const getTicket = async (ticketId, token) => {
   return response.data;
 };
 
-
-
 // Get All Projects
 const getProjects = async (token) => {
   const config = {
