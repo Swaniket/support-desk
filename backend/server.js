@@ -24,6 +24,8 @@ app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/tickets", require("./routes/ticketRoutes"));
 // Projects Route
 app.use("/api/projects", require("./routes/projectRoutes"));
+// Admin Route
+app.use("/api/admin", require("./routes/adminRoutes"));
 
 
 // ---- Custom Error Handler ----

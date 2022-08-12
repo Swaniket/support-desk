@@ -75,7 +75,7 @@ function Register() {
     <Container>
       <section>
         <h1 className="heading custom-text-primary">
-          <FaUser /> Register
+          <FaUser /> Add User
         </h1>
         <p className="heading-sub custom-text-secondary">
           Please enter employee details to register

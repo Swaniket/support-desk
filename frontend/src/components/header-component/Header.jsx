@@ -27,9 +27,13 @@ function Header() {
     navigate("/register");
   };
 
-  const handleAddProject = () => {}
+  const handleAddProject = () => {
+    navigate("/add-project");
+  };
 
-  const handleOpenDashboard = () => {}
+  const handleOpenDashboard = () => {
+    navigate("/dashboard");
+  };
 
   return (
     <Navbar className="navbar navbar-expand-lg navbar-light bg-light">

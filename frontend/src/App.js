@@ -13,6 +13,8 @@ import Login from "./pages/login-page/Login";
 import Register from "./pages/register-page/Register";
 import NewTicket from "./pages/new-ticket-page/NewTicket";
 import Tickets from "./pages/tickets-page/Tickets";
+import Dashboard from "./pages/dashboard-page/Dashboard";
+import AddProject from "./pages/add-project-page/AddProject";
 
 import PrivateRoute from "./authentication/PrivateRoute";
 import AdminRoute from "./authentication/AdminRoute";
@@ -56,6 +58,8 @@ function App() {
 
           <Route element={<AdminRoute />}>
             <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/add-project" element={<AddProject />} />
           </Route>
         </Routes>
         <ToastContainer />

@@ -77,7 +77,9 @@ const createTicket = asyncHandler(async (req, res) => {
     status: "new",
   });
 
-  res.status(201).json(ticket);
+  const modTicket = await Ticket.find(ticket).populate("user");
+
+  res.status(201).json(modTicket);
 });
 
 // @DESC-    Delete ticket by ticket ID

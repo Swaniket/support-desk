@@ -32,7 +32,29 @@ const addNewProject = asyncHandler(async (req, res) => {
   }
 });
 
+// @DESC-    Remove a project from DB
+// @ROUTE-   POST: /api/projects
+// @ACCESS-  Admin only
+const removeProject = asyncHandler(async (req, res) => {
+  // @TODO: Check if project already exists
+  const { projectName } = req.body;
+
+  // Check if the project exists
+  const project = await Projects.findOne({ projectName: projectName });
+
+  if (project) {
+    await Projects.deleteOne({
+      projectName,
+    });
+    res.status(201).json({ message: "Project Removed Successfully" });
+  } else {
+    res.status(400);
+    throw new Error("Invalid Project Data!");
+  }
+});
+
 module.exports = {
   getAllProjects,
   addNewProject,
+  removeProject,
 };
