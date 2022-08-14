@@ -1,10 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
 import { Container, Col, Row } from "react-bootstrap";
 import { FaQuestionCircle, FaTicketAlt } from "react-icons/fa";
-
 import { getUser } from "../../features/auth/authSlice";
 
 function Home() {

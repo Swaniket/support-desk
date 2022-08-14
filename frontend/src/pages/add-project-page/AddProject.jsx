@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { Form, Accordion, Button, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   createProject,
   getProjects,
   deleteProject,
   getAdminState,
 } from "../../features/admin/adminSlice";
-
-import CustomModal from "../../components/custom-modal-component/CustomModal";
-import BackButton from "../../components/back-button-component/BackButton";
+import { CustomModal, BackButton } from "../../components";
 import "./addProject.css";
 
 function AddProject() {

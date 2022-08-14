@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { getUser } from "../../features/auth/authSlice";
 import {
   createNewTicket,
@@ -10,10 +9,9 @@ import {
   getTicket,
   reset,
 } from "../../features/tickets/ticketSlice";
-
 import { Button, Form, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
-import BackButton from "../../components/back-button-component/BackButton";
+import { BackButton } from "../../components";
 
 function NewTicket() {
   const dispatch = useDispatch();

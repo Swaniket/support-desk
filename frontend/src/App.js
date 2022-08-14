@@ -3,22 +3,19 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
 import { setAdmin } from "./features/auth/authSlice";
-
-import Header from "./components/header-component/Header";
-
-import Home from "./pages/home-page/Home";
-import Login from "./pages/login-page/Login";
-import Register from "./pages/register-page/Register";
-import NewTicket from "./pages/new-ticket-page/NewTicket";
-import Tickets from "./pages/tickets-page/Tickets";
-import Dashboard from "./pages/dashboard-page/Dashboard";
-import AddProject from "./pages/add-project-page/AddProject";
-
+import { Header } from "./components";
+import {
+  AddProject,
+  Dashboard,
+  Home,
+  Login,
+  NewTicket,
+  Register,
+  Tickets,
+} from "./pages";
 import PrivateRoute from "./authentication/PrivateRoute";
 import AdminRoute from "./authentication/AdminRoute";
-
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {

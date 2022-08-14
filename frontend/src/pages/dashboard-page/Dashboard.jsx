@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   fetchAllTickets,
   fetchKPIs,
   getAdminState,
 } from "../../features/admin/adminSlice";
-
-import CustomCard from "../../components/custom-card-component/CustomCard";
-import CustomTable from "../../components/custom-table-component/CustomTable";
-import ViewTicket from "../../components/view-ticket-component/ViewTicket";
-import BackButton from "../../components/back-button-component/BackButton";
+import {
+  CustomCard,
+  CustomTable,
+  ViewTicket,
+  BackButton,
+} from "../../components";
 import "./dashboard.css";
 
 function Dashboard() {

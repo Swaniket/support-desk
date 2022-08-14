@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchTickets,
   reset,
   getTicket,
 } from "../../features/tickets/ticketSlice";
-
-import BackButton from "../../components/back-button-component/BackButton";
-import CustomTable from "../../components/custom-table-component/CustomTable";
-import ViewTicket from "../../components/view-ticket-component/ViewTicket";
+import { BackButton, CustomTable, ViewTicket } from "../../components";
 
 function Tickets() {
   const dispatch = useDispatch();
@@ -94,7 +90,12 @@ function Tickets() {
         <h1 className="heading">My Tickets</h1>
       </section>
       <div className="tickets">
-        <CustomTable data={tickets} columns={columns} keyField='_id' loading={isLoading} />
+        <CustomTable
+          data={tickets}
+          columns={columns}
+          keyField="_id"
+          loading={isLoading}
+        />
       </div>
       <ViewTicket
         show={openViewTicket}
