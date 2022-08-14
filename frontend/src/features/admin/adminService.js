@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiServiceDesk from "../../axios/apiServiceDesk"
 
 const API_URL = "/api/admin";
 const TICKETS_URL = "/api/tickets";
@@ -11,7 +11,7 @@ const fetchAllTickets = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.get(`${API_URL}/allTickets`, config);
+  const response = await apiServiceDesk.get(`${API_URL}/allTickets`, config);
   return response.data;
 };
 
@@ -22,7 +22,7 @@ const closeTicket = async (ticketId, token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.put(
+  const response = await apiServiceDesk.put(
     `${TICKETS_URL}/${ticketId}`,
     { status: "closed" },
     config
@@ -37,7 +37,7 @@ const fetchKPIs = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.get(`${API_URL}/kpi`, config);
+  const response = await apiServiceDesk.get(`${API_URL}/kpi`, config);
   return response.data;
 };
 
@@ -48,7 +48,7 @@ const addNewProject = async (projectData, token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.post(PROJECT_URL, projectData, config);
+  const response = await apiServiceDesk.post(PROJECT_URL, projectData, config);
   return response.data;
 };
 
@@ -59,7 +59,7 @@ const fetchProjects = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.get(PROJECT_URL, config);
+  const response = await apiServiceDesk.get(PROJECT_URL, config);
   return response.data;
 };
 
@@ -67,7 +67,7 @@ const fetchProjects = async (token) => {
 // Different structure as axios doesn't support a
 // request body on delete requests
 const deleteProject = async (projectName, token) => {
-  const response = await axios.delete(PROJECT_URL, {
+  const response = await apiServiceDesk.delete(PROJECT_URL, {
     data: { projectName: projectName },
     headers: { Authorization: `Bearer ${token}` },
   });

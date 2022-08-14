@@ -1,11 +1,11 @@
-import axios from "axios";
+import apiServiceDesk from "../../axios/apiServiceDesk"
 
 const API_URL = "/api/users";
 const ADMIN_URL = "/api/users/isAdmin";
 
 // Register new user
 const register = async (userData) => {
-  const response = await axios.post(API_URL, userData);
+  const response = await apiServiceDesk.post(API_URL, userData);
 
   return response.data;
 };
@@ -14,7 +14,7 @@ const register = async (userData) => {
 const login = async (userCredential) => {
   var userIsAdmin = false
 
-  const response = await axios.post(`${API_URL}/login`, userCredential);
+  const response = await apiServiceDesk.post(`${API_URL}/login`, userCredential);
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data));
 
@@ -26,7 +26,7 @@ const login = async (userCredential) => {
       },
     };
 
-    const checkAdmin = await axios.get(ADMIN_URL, config);
+    const checkAdmin = await apiServiceDesk.get(ADMIN_URL, config);
 
     userIsAdmin = checkAdmin.data.isAdmin
   }

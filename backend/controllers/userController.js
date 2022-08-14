@@ -93,7 +93,7 @@ const isAdmin = asyncHandler(async (req, res) => {
 // Generate Token
 const generateToken = (id, isAdmin) => {
   return jwt.sign({ id, isAdmin }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
+    expiresIn: "1d",
   });
 };
 

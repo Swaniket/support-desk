@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiServiceDesk from "../../axios/apiServiceDesk"
 
 const API_URL = "/api/tickets/";
 const API_URL_PROJECTS = "/api/projects/";
@@ -10,7 +10,7 @@ const createTicket = async (ticketData, token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.post(API_URL, ticketData, config);
+  const response = await apiServiceDesk.post(API_URL, ticketData, config);
   return response.data;
 };
 
@@ -21,7 +21,7 @@ const getTickets = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.get(API_URL, config);
+  const response = await apiServiceDesk.get(API_URL, config);
   return response.data;
 };
 
@@ -32,7 +32,7 @@ const getTicket = async (ticketId, token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.get(`${API_URL}${ticketId}`, config);
+  const response = await apiServiceDesk.get(`${API_URL}${ticketId}`, config);
   return response.data;
 };
 
@@ -43,7 +43,7 @@ const getProjects = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.get(API_URL_PROJECTS, config);
+  const response = await apiServiceDesk.get(API_URL_PROJECTS, config);
   return response.data;
 };
 
