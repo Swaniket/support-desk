@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
 import { registerUser, getAuth, reset } from "../../features/auth/authSlice";
 
-import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
-import { Button, Form, Container } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+
+import BackButton from "../../components/back-button-component/BackButton";
 import "./register.css";
 
 function Register() {
@@ -72,7 +75,8 @@ function Register() {
   };
 
   return (
-    <Container>
+    <>
+      <BackButton url="/home" />
       <section>
         <h1 className="heading custom-text-primary">
           <FaUser /> Add User
@@ -172,7 +176,7 @@ function Register() {
           </Button>
         </div>
       </Form>
-    </Container>
+    </>
   );
 }
 

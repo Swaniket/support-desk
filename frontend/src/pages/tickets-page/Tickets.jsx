@@ -89,7 +89,7 @@ function Tickets() {
 
   return (
     <>
-      <BackButton url="/" />
+      <BackButton url="/home" />
       <section>
         <h1 className="heading">My Tickets</h1>
       </section>

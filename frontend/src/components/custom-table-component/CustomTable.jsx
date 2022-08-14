@@ -4,6 +4,8 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import overlayFactory from "react-bootstrap-table2-overlay";
 
 function CustomTable({ data, columns, loading }) {
+  const emptyDataMessage = () => { return <span className="text-middle">No tickets to show</span>;}
+
   return (
     <>
       <BootstrapTable
@@ -34,7 +36,7 @@ function CustomTable({ data, columns, loading }) {
           spinner: true,
           background: "rgba(211, 211, 211, 0.3)",
         })}
-        noDataIndication
+        noDataIndication={emptyDataMessage}
       />
     </>
   );

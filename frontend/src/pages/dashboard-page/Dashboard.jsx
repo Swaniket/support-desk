@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   fetchAllTickets,
   fetchKPIs,
@@ -8,9 +8,10 @@ import {
 } from "../../features/admin/adminSlice";
 
 import CustomCard from "../../components/custom-card-component/CustomCard";
-import "./dashboard.css";
 import CustomTable from "../../components/custom-table-component/CustomTable";
 import ViewTicket from "../../components/view-ticket-component/ViewTicket";
+import BackButton from "../../components/back-button-component/BackButton";
+import "./dashboard.css";
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -18,10 +19,10 @@ function Dashboard() {
   const [openViewTicket, setOpenViewTicket] = useState(false);
   const [viewTicketData, setViewTicketData] = useState({});
 
-  const { tickets, kpis, isLoading, isError } = useSelector(getAdminState);
+  const { tickets, kpis, isLoading } = useSelector(getAdminState);
 
   useEffect(() => {
-    dispatch(fetchKPIs())
+    dispatch(fetchKPIs());
     dispatch(fetchAllTickets());
   }, [dispatch]);
 
@@ -96,6 +97,7 @@ function Dashboard() {
   return (
     <>
       <div>
+        <BackButton url="/home" />
         <hr></hr>
         <div className="card-layout">
           <CustomCard title="Total Tickets" value={kpis?.totalTickets} />
@@ -107,7 +109,7 @@ function Dashboard() {
       <div className="table-container">
         <h1 className="heading">All Tickets</h1>
         <CustomTable
-        keyField='_id'
+          keyField="_id"
           data={tickets}
           columns={columns}
           loading={isLoading}

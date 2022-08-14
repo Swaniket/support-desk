@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
+import { Form, Accordion, Button, Card } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   createProject,
   getProjects,
   deleteProject,
   getAdminState,
 } from "../../features/admin/adminSlice";
-import { Form, Accordion, Button, Card } from "react-bootstrap";
-import "./addProject.css";
-import { toast } from "react-toastify";
+
 import CustomModal from "../../components/custom-modal-component/CustomModal";
+import BackButton from "../../components/back-button-component/BackButton";
+import "./addProject.css";
 
 function AddProject() {
   const dispatch = useDispatch();
@@ -75,90 +78,93 @@ function AddProject() {
   };
 
   return (
-    <div className="content-center">
-      <Accordion defaultActiveKey="0" style={{ width: "500px" }}>
-        {/* Add New Project */}
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>Add New Project</Accordion.Header>
-          <Accordion.Body>
-            <Form onSubmit={onAddProject}>
-              {/* Project Name */}
-              <Form.Group className="mb-3">
-                <Form.Label>
-                  <strong>Project Name</strong>
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter the project name"
-                  id="projectName"
-                  value={projectName}
-                  onChange={handleOnChange}
-                  name="projectName"
-                />
-              </Form.Group>
-              <div className="add-project-btn">
-                <Button
-                  className="btn btn-dark"
-                  type="submit"
-                  disabled={isLoading}
-                  style={{ width: "140px" }}
-                >
-                  {isLoading ? "Loading…" : "Create Project"}
-                </Button>
-              </div>
-            </Form>
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="1">
-          {/* View All Projects */}
-          <Accordion.Header>All Projects</Accordion.Header>
-          <Accordion.Body>
-            <button className="btn btn-secondory" onClick={refreshList}>
-              Refresh
-            </button>
-            {isLoading && <h2 className="heading">Loading...</h2>}
-
-            {!isLoading && projects.length === 0 && (
-              <>
-                <h2 className="heading">Nothing Here</h2>
-                <p className="heading-sub">Looks like no project is added</p>
-              </>
-            )}
-
-            {!isLoading &&
-              projects.length > 0 &&
-              projects.map((project) => (
-                <div className="project-container" key={project._id}>
-                  <Card style={{ width: "20rem", margin: "10px" }}>
-                    <Card.Body>
-                      <Card.Title>{project.projectName}</Card.Title>
-                      <Card.Subtitle className="text-muted">
-                        ID: {project._id}
-                      </Card.Subtitle>
-                      <hr></hr>
-                      <div style={{ display: "flex", justifyContent: "end" }}>
-                        <Button
-                          variant="outline-danger"
-                          size="sm"
-                          onClick={() => handleDelete(project.projectName)}
-                        >
-                          Delete
-                        </Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
+    <>
+      <BackButton url="/" />
+      <div className="content-center">
+        <Accordion defaultActiveKey="0" style={{ width: "500px" }}>
+          {/* Add New Project */}
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Add New Project</Accordion.Header>
+            <Accordion.Body>
+              <Form onSubmit={onAddProject}>
+                {/* Project Name */}
+                <Form.Group className="mb-3">
+                  <Form.Label>
+                    <strong>Project Name</strong>
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter the project name"
+                    id="projectName"
+                    value={projectName}
+                    onChange={handleOnChange}
+                    name="projectName"
+                  />
+                </Form.Group>
+                <div className="add-project-btn">
+                  <Button
+                    className="btn btn-dark"
+                    type="submit"
+                    disabled={isLoading}
+                    style={{ width: "140px" }}
+                  >
+                    {isLoading ? "Loading…" : "Create Project"}
+                  </Button>
                 </div>
-              ))}
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
-      <CustomModal
-        show={showConfirm}
-        handleClose={handleModalClose}
-        onConfirm={onConfirmDelete}
-        message="Are you sure? This action is irreversable"
-      />
-    </div>
+              </Form>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            {/* View All Projects */}
+            <Accordion.Header>All Projects</Accordion.Header>
+            <Accordion.Body>
+              <button className="btn btn-secondory" onClick={refreshList}>
+                Refresh
+              </button>
+              {isLoading && <h2 className="heading">Loading...</h2>}
+
+              {!isLoading && projects.length === 0 && (
+                <>
+                  <h2 className="heading">Nothing Here</h2>
+                  <p className="heading-sub">Looks like no project is added</p>
+                </>
+              )}
+
+              {!isLoading &&
+                projects.length > 0 &&
+                projects.map((project) => (
+                  <div className="project-container" key={project._id}>
+                    <Card style={{ width: "20rem", margin: "10px" }}>
+                      <Card.Body>
+                        <Card.Title>{project.projectName}</Card.Title>
+                        <Card.Subtitle className="text-muted">
+                          ID: {project._id}
+                        </Card.Subtitle>
+                        <hr></hr>
+                        <div style={{ display: "flex", justifyContent: "end" }}>
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() => handleDelete(project.projectName)}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                ))}
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+        <CustomModal
+          show={showConfirm}
+          handleClose={handleModalClose}
+          onConfirm={onConfirmDelete}
+          message="Are you sure? This action is irreversable"
+        />
+      </div>
+    </>
   );
 }
 

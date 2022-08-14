@@ -31,6 +31,7 @@ function NewTicket() {
     }
 
     if (isSuccess) {
+      toast.success("Ticket Created Successfully");
       navigate("/tickets");
     }
 
@@ -63,17 +64,12 @@ function NewTicket() {
       description,
     };
 
-    const data = await dispatch(createNewTicket(ticketData));
-
-    if (data?.payload?.title) {
-      clearForm();
-      toast.success("Ticket Created Successfully");
-    }
+    dispatch(createNewTicket(ticketData));
   };
 
   return (
     <Container>
-    <BackButton url="/"/>
+      <BackButton url="/" />
       <section>
         <h1 className="heading custom-text-primary">Create Ticket</h1>
         <p className="heading-sub custom-text-secondary">
