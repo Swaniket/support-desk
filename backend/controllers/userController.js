@@ -6,7 +6,7 @@ const User = require("../models/userModel");
 
 // @DESC-    Register a User
 // @ROUTE-   POST: /api/users
-// @ACCESS-  Public (For future version it will be an ADMIN ONLY route)
+// @ACCESS-  Admin Only
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
